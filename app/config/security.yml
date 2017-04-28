@@ -35,6 +35,10 @@ security:
                 check_path: login
                 default_target_path: chat
 
+            logout:
+                path:   /logout
+                target: /chat
+
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/chat, role: ROLE_USER }
