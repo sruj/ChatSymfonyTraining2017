@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block title %}Chat{% endblock %}
+{% block body %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <p>Username: {{ app.user.username }} <a href="{{ path('logout') }}">Log out</a></p>
+    {% endif %}
+    <h1>chat!</h1>
+{% endblock %}
+
+
+
