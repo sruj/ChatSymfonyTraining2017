@@ -1,0 +1,90 @@
+{% extends '@App/layout.html.twig' %}
+{% block title %}Chat{% endblock %}
+{% block body %}
+    <script>
+        var conn = new WebSocket('ws://localhost:8080');
+
+        $(window).on('load', function() {
+            var username = document.getElementById('usrname').innerHTML;
+            var message = {"message": {"flag": "newUsername", "data": username}};
+            var strmsg = JSON.stringify(message);
+
+            conn.send(strmsg);
+
+            console.log("Wysłałem do centrali wiadomość o treści:" + strmsg);
+        });
+
+
+
+        conn.onopen = function (e) {
+            console.log("Connection start!");
+        };
+
+
+
+        conn.onmessage = function (e) {
+            console.log("new message on JavaScript onmessage: " + e.data);
+
+            var message = JSON.parse(e.data);
+            var flag = message.message.flag;
+            if(flag === "userlist"){
+//              '{"message":{ "flag":"userlist", "data": {"68":"Dantuta","13":"Tadeusz"}}}';
+                var userlist = message.message.data;
+                displayUserList(userlist);
+            }
+            if(flag === "chatMessage"){
+                var div = document.getElementById('chatArea');
+                console.log(message);
+                displayChatMessage(div, message);
+            }
+
+        };
+
+
+        function displayUserList(userlist) {
+            var usersListDIV = document.getElementById('usersList');
+            usersListDIV.innerHTML = '';
+//            {"message":{ "flag":"userlist", "data": {"57":"mama","106":"tata","111":"mama","116":"s","121":"tata","126":"s","131":"s","136":"s","141":"ss"}}}
+            $.each(userlist,function(k,username){
+                usersListDIV.innerHTML = usersListDIV.innerHTML + username + '<br />';
+            })
+        }
+
+        function displayChatMessage(div, message) {
+            div.innerHTML = div.innerHTML + '<br />' + '<span class="username">' + message.message.data.username +
+                ': </span><span class="chatMessage" >' + message.message.data.chatMessage + '</span>';
+        }
+
+
+        function sendChatMessage(e) {
+            console.log("jeste");
+            if (e.keyCode == 13) {
+                var username = document.getElementById('usrname').innerHTML;
+                var chatMessage = document.getElementById('txt').value;
+                $("input[name=txt]").val('');
+                var message = {"message": {"flag": "chatMessage", "data": {"username":username,"chatMessage":chatMessage}}};
+                var strmsg = JSON.stringify(message);
+                conn.send(strmsg);
+                return false;
+            }
+            return true;
+        }
+
+    </script>
+    <div id="wrapper">
+        <div id="chatArea" style="overflow-y: scroll;height: 200px;width: 700px;border: groove;display: inline-block;">
+        </div>
+        <div id="usersList" style="overflow-y: scroll;min-height: 200px;width: 200px;border: groove;display: inline-block;">
+        </div>
+    </div>
+
+    <form action="">
+        <input style="width: 400px; height: 100px; border: groove" id="txt" title="Username" type="text" onkeypress="return sendChatMessage(event)"
+               name="txt"><br>
+    </form>
+
+    <h1 id="usrname">{{ username }}</h1>
+{% endblock %}
+
+
+
