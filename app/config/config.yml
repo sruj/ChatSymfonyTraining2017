@@ -64,3 +64,16 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+# TO NIE JEST UŻYWANE
+# A JEŚLI CHCIAŁBYŚ, TO WYWOŁUJESZ SERWIS: $logger = $this->get('monolog.logger.chat');
+# ALE MUSIAŁBYŚ WSTRZYKNĄĆ DO KONSTRUKTORA JEŚLI POZA KONTROLEREM
+monolog:
+    channels: ['chat']
+    handlers:
+        chat_userlist:
+            type: stream
+            # log to app/logs/chat_userlist.log
+            path: "%kernel.logs_dir%/%kernel.chat_userlist.log"
+            level: notice
+            channels: [chat]

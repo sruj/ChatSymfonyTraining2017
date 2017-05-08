@@ -1,0 +1,6 @@
+services:
+# nie wykorzystuję
+# Ale miało być jak tu:  Tu tak robili: http://stackoverflow.com/questions/17529657/how-to-use-properly-websockets-in-symfony2
+    chat:
+        class: AppBundle\Websocket\Chat
+        arguments: ['@logger']
