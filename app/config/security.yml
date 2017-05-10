@@ -1,44 +1,44 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/security.html
-security:
-
-    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
-    providers:
-        in_memory:
-            memory:
-                users:
-                    user1:
-                        password: user1
-                        roles: 'ROLE_USER'
-                    user2:
-                        password: user2
-                        roles: 'ROLE_USER'
-    encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
-
-    firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
-        main:
-            anonymous: ~
-            # activate different ways to authenticate
-
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-            form_login:
-                login_path: login
-                check_path: login
-                default_target_path: chat
-
-            logout:
-                path:   /logout
-                target: /chat
-
-    access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/chat, role: ROLE_USER }
+#security:
+#
+#    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+#    providers:
+#        in_memory:
+#            memory:
+#                users:
+#                    user1:
+#                        password: user1
+#                        roles: 'ROLE_USER'
+#                    user2:
+#                        password: user2
+#                        roles: 'ROLE_USER'
+#    encoders:
+#        Symfony\Component\Security\Core\User\User: plaintext
+#
+#    firewalls:
+#        # disables authentication for assets and the profiler, adapt it according to your needs
+#        dev:
+#            pattern: ^/(_(profiler|wdt)|css|images|js)/
+#            security: false
+#
+#        main:
+#            anonymous: ~
+#            # activate different ways to authenticate
+#
+#            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+#            #http_basic: ~
+#
+#            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+#            form_login:
+#                login_path: login
+#                check_path: login
+#                default_target_path: chat
+#
+#            logout:
+#                path:   /logout
+#                target: /chat
+#
+#    access_control:
+#        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/chat, role: ROLE_USER }
