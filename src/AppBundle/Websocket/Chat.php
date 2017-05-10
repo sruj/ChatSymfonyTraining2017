@@ -8,7 +8,6 @@ use Ratchet\ConnectionInterface;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-//TODO: POPRAWIĆ KOMENTARZE, POUSUWAĆ TO I TAMTO
 
 /**
  * Class Chat
@@ -19,18 +18,12 @@ class Chat implements MessageComponentInterface
 {
     protected $clients;
     protected $userlist;
-    private $logger;
 
 
-    /**
-     * Chat constructor.
-     */
     public function __construct()
     {
         $this->clients = new \SplObjectStorage;
         $this->userlist = [];
-
-        $this->logger = new Logger('name');
     }
 
 
@@ -41,10 +34,8 @@ class Chat implements MessageComponentInterface
     public function onOpen(ConnectionInterface $conn)
     {
         $this->clients->attach($conn);
-
         echo "New connection! ({$conn->resourceId})\n";
     }
-
 
 
     /**
@@ -78,39 +69,17 @@ class Chat implements MessageComponentInterface
     }
 
 
-    private function addNewUsernameToUserList($username,$userId)
-    {
-        //logger. Zbędne raczej.
-//        $this->logger->pushHandler(new StreamHandler(__DIR__.'chryp.log', Logger::NOTICE));
-//        $this->logger->notice($message);
-
-        $this->userlist[$userId] = $username;
-
-        return true;
-    }
-
-
-
     /**
      * Called when a Connection is closed
      */
     public function onClose(ConnectionInterface $conn)
     {
-        // The connection is closed, remove it, as we can no longer send it messages
         $this->clients->detach($conn);
-
         echo "Connection {$conn->resourceId} has disconnected\n";
-
         $this->removeClient($conn->resourceId);
         $jsonUserList = json_encode($this->userlist);
         $jsonMsg = $this->prepareMessage("userlist", $jsonUserList);
         $this->sendUserListToEveryClient($jsonMsg);
-
-    }
-
-    private function removeClient($userId){
-        //usuń element z tablicy
-        unset($this->userlist[$userId]);
     }
 
 
@@ -120,30 +89,22 @@ class Chat implements MessageComponentInterface
     public function onError(ConnectionInterface $conn, \Exception $e)
     {
         echo "An error has occurred: {$e->getMessage()}\n";
-
         $conn->close();
     }
 
 
-
-
-
-
-
-
-
-
-
-    private $debugCounter = 0;
-    private function debug($from)
+    private function addNewUsernameToUserList($username,$userId)
     {
-        $this->debugCounter++;
-        $filename= (string)date('Y-m-d_H.i.s');
-        ob_start();
-        var_dump($from);
-        $result = ob_get_clean();
-        file_put_contents(__DIR__ .'_'.$filename.'_('.$this->debugCounter.').txt', $result);
+        $this->userlist[$userId] = $username;
+        return true;
     }
+
+
+    private function removeClient($userId)
+    {
+        unset($this->userlist[$userId]);
+    }
+
 
     /**
      * @param $flag
@@ -155,6 +116,7 @@ class Chat implements MessageComponentInterface
         $jsonMsg = '{"message":{ "flag":"' . $flag . '", "data": ' . $data . '}}';
         return $jsonMsg;
     }
+
 
     /**
      * @param $jsonMsg
