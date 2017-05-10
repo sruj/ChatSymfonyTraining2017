@@ -4,6 +4,7 @@
 {% block title %}Chat{% endblock %}
 {% block body %}
     <script>
+        {#TODO: FAJNIE GDYBY HOST I PORT BYŁY KONFIGUROWALNE W config.yml#}
         var conn = new WebSocket('ws://localhost:8080');
 
         $(window).on('load', function() {
@@ -11,7 +12,9 @@
             var message = {"message": {"flag": "newUsername", "data": username}};
             var strmsg = JSON.stringify(message);
 
-            conn.send(strmsg);
+            conn.onopen = function() {
+                conn.send(strmsg);
+            };
 
             console.log("Wysłałem do centrali wiadomość o treści:" + strmsg);
         });

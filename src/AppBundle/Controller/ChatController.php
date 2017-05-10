@@ -27,10 +27,10 @@ class ChatController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $username = $data['name'];
-            return $this->render('chat.html.twig', ['username'=>$username]);
+            return $this->render('@App/chat/chat.html.twig', ['username'=>$username]);
         }
 
-        return $this->render('@App/chat/chat.html.twig',['form' => $form->createView()]);
+        return $this->render('@App/chat/login.html.twig',['form' => $form->createView()]);
 
 
     }
