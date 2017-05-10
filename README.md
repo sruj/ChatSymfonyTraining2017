@@ -1,6 +1,6 @@
 # Symfony Chat (WebSocket Ratchet)
 
-Prosty projekt chatu wykonany we frameworku Symfony z użyciem technologi WebSocket, biblioteki Ratchet.
+Prosty projekt chatu wykonany we frameworku Symfony z użyciem technologii WebSocket, biblioteki Ratchet.
 
 #### Wymagania
 1. Postaw nowy projekt z uzyciem symfony 2.8
