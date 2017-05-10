@@ -1,3 +1,4 @@
+<!--TODO: PRZENIEŚĆ SKRYPT SERWERA TU-->
 <?php
 use Ratchet\Server\IoServer;
 use AppBundle\Websocket\Chat;

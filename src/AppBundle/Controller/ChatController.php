@@ -11,27 +11,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ChatController extends Controller
 {
-//    /**
-//     * @Route("/chat", name="chat")
-//     */
-//    public function indexAction()
-//    {
-//        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-//            throw $this->createAccessDeniedException();
-//        }
-//
-//        $user = $this->getUser();
-//
-//        return $this->render('@App/chat/index.html.twig');
-//    }
 
     /**
      * @Route("/chat", name="chat")
      */
     public function chatAction(Request $request)
     {
-        $defaultData = array('message' => 'Type your message here');
-        $form = $this->createFormBuilder($defaultData)
+        $form = $this->createFormBuilder()
             ->add('name', \Symfony\Component\Form\Extension\Core\Type\TextType::class)
             ->add('send', SubmitType::class)
             ->getForm();
