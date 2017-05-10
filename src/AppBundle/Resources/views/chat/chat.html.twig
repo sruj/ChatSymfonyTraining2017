@@ -1,3 +1,5 @@
+{#TODO: WYPROWADZIĆ CSS, JS#}
+{#TODO: ZAMIENIĆ JS NA JQUERY#}
 {% extends '@App/layout.html.twig' %}
 {% block title %}Chat{% endblock %}
 {% block body %}
@@ -28,8 +30,7 @@
             var message = JSON.parse(e.data);
             var flag = message.message.flag;
             if(flag === "userlist"){
-//              '{"message":{ "flag":"userlist", "data": {"68":"Dantuta","13":"Tadeusz"}}}';
-                var userlist = message.message.data;
+                var userlist = message.message.data; //'{"message":{ "flag":"userlist", "data": {"68":"Dantuta","13":"Tadeusz"}}}';
                 displayUserList(userlist);
             }
             if(flag === "chatMessage"){
@@ -44,7 +45,6 @@
         function displayUserList(userlist) {
             var usersListDIV = document.getElementById('usersList');
             usersListDIV.innerHTML = '';
-//            {"message":{ "flag":"userlist", "data": {"57":"mama","106":"tata","111":"mama","116":"s","121":"tata","126":"s","131":"s","136":"s","141":"ss"}}}
             $.each(userlist,function(k,username){
                 usersListDIV.innerHTML = usersListDIV.innerHTML + username + '<br />';
             })

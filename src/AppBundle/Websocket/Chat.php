@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: chiny
- * Date: 2017-05-01
- * Time: 19:57
- */
 
 namespace AppBundle\Websocket;
 
@@ -14,7 +8,7 @@ use Ratchet\ConnectionInterface;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
-
+//TODO: POPRAWIĆ KOMENTARZE, POUSUWAĆ TO I TAMTO
 
 /**
  * Class Chat
