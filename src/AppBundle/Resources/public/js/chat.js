@@ -58,7 +58,7 @@ function sendChatMessage(e) {
     console.log("jeste");
     if (e.keyCode == 13) {
         var username = document.getElementById('usrname').innerHTML;
-        var chatMessage = document.getElementById('txt').value;
+        var chatMessage = document.getElementById('chatFormInput').value;
         $("input[name=txt]").val('');
         var message = {"message": {"flag": "chatMessage", "data": {"username":username,"chatMessage":chatMessage}}};
         var strmsg = JSON.stringify(message);
