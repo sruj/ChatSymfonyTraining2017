@@ -22,13 +22,22 @@ class ServerCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        # A JEDNAK NIE POTRZEBUJĘ WSTRZYKIWAĆ SERWISU. MYŚLAŁEM ŻE POTRZEBUJĘ WSTRZYKNĄĆ PARAMETRY (host i port) DO KONSTRUKTORA KLASY CHATU.
+//        $chat = $this->getContainer()->get('chat');
+        $port = 8080;
+
+
+        if($this->getContainer()->hasParameter('chat_port')) {
+            $port = $this->getContainer()->getParameter('chat_port');
+        };
+
         $server = IoServer::factory(
             new HttpServer(
                 new WsServer(
                     new Chat()
                 )
             ),
-            8080
+            $port
         );
 
         $server->run();

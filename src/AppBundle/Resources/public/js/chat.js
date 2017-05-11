@@ -1,6 +1,4 @@
-// {#TODO: ZAMIENIĆ JS NA JQUERY#}
-// {#TODO: FAJNIE GDYBY HOST I PORT BYŁY KONFIGUROWALNE W config.yml#}
-var conn = new WebSocket('ws://localhost:8080');
+var conn = new WebSocket( 'ws://' + host + ':' + port );
 
 $(window).on('load', function() {
     var username = document.getElementById('usrname').innerHTML;

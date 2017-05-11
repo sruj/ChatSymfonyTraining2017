@@ -6,6 +6,9 @@ use Doctrine\DBAL\Types\TextType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\CssSelector\Tests\Parser\ReaderTest;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,6 +20,7 @@ class ChatController extends Controller
      */
     public function chatAction(Request $request)
     {
+        /** @var Form $form */
         $form = $this->createFormBuilder()
             ->add('name', \Symfony\Component\Form\Extension\Core\Type\TextType::class)
             ->add('send', SubmitType::class)
@@ -27,7 +31,11 @@ class ChatController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $username = $data['name'];
-            return $this->render('@App/chat/chat.html.twig', ['username'=>$username]);
+
+            $port = $this->getParameter('chat_port');
+            $host = $this->getParameter('chat_host');
+
+            return $this->render('@App/chat/chat.html.twig', ['username'=>$username, 'host'=>$host, 'port'=>$port]);
         }
 
         return $this->render('@App/chat/login.html.twig',['form' => $form->createView()]);

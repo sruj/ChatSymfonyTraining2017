@@ -1,0 +1,3 @@
+parameters:
+    chat_host: localhost
+    chat_port: 8080
