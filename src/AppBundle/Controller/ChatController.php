@@ -32,6 +32,10 @@ class ChatController extends Controller
             $data = $form->getData();
             $username = $data['name'];
 
+            if(!($this->getParameter('chat_host')||$this->getParameter('chat_port'))) {
+//TODO:                throw jakiś custom exception że trzeba podać parametry host i port w appbundle/../parameters.yml
+            }
+
             $port = $this->getParameter('chat_port');
             $host = $this->getParameter('chat_host');
 
