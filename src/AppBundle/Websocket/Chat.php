@@ -43,11 +43,14 @@ class Chat implements MessageComponentInterface
      */
     public function onMessage(ConnectionInterface $from, $msg)
     {
+        $this->debug('onMessage');
+        echo "onMessage";
         $msgDecode = json_decode($msg);
         $flag = $msgDecode->message->flag;
         $userId = $from->resourceId;
 
         if($flag == "newUsername"){
+            $this->debug('newUsername');
             $username = $msgDecode->message->data;
             $this->addNewUsernameToUserList($username,$userId);
             $jsonUserList = json_encode($this->userlist);
@@ -125,8 +128,20 @@ class Chat implements MessageComponentInterface
     {
         foreach ($this->clients as $client) {
             $client->send($jsonMsg);
+            echo "send! ({$jsonMsg})\n";
+            $this->debug($jsonMsg);
         }
     }
 
+    private $debugCounter = 0;
+    private function debug($from)
+    {
+        $this->debugCounter++;
+        $filename= (string)date('Y-m-d_H.i.s');
+        ob_start();
+        var_dump($from);
+        $result = ob_get_clean();
+        file_put_contents(__DIR__ .'_'.$filename.'_('.$this->debugCounter.').txt', $result);
+    }
 
 }

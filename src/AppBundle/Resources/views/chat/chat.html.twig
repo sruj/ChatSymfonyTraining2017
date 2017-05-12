@@ -7,10 +7,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script>
-        var host = '{{ host }}';
-        var port = '{{ port }}';
-    </script>
     <script src="{{ asset('bundles/app/js/chat.js') }}"></script>
 {% endblock %}
 

@@ -12,9 +12,10 @@
     },
     "require": {
         "php": ">=5.3.9",
-        "cboden/ratchet": "0.4.x-dev",
+        "cboden/ratchet": "^0.3.6",
         "doctrine/doctrine-bundle": "~1.4",
         "doctrine/orm": "^2.4.8",
+        "friendsofsymfony/jsrouting-bundle": "^1.6",
         "incenteev/composer-parameter-handler": "~2.0",
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "^3.0.2",

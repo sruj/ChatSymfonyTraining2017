@@ -8,6 +8,8 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         {% block javascripts %}
             <script src="{{ asset('bundles/app/js/jquery-3.2.1.js') }}"></script>
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', { 'callback': 'fos.Router.setData' }) }}"></script>
         {% endblock %}
     </head>
     <body>

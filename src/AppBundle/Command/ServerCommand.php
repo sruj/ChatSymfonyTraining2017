@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
-
+use AppBundle\Entity\Connection;
 
 class ServerCommand extends ContainerAwareCommand
 {
@@ -28,20 +28,27 @@ class ServerCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-#poniższe (5 liń) ROBIĘ DLA PICU, BY ZASTOSOWAĆ CUSTOM COMMAND Z ARGUMENTAMI. DLA PICU BO TO NIE MA SENSU, I TAK MUSZĘ TE PARAMETRY DOSTARCZYĆ DO KONTROLERA
-#DLATEGO REZYGNUJĘ Z TEGO A ZASTOSUJĘ PARAMETRY W PARAMETERS.YML
         $helper = $this->getHelper('question');
         $question1 = new Question('Provide a hostname: ', 'localhost');
         $question2 = new Question('Provide a port number: ', '8080');
         $host = $helper->ask($input, $output, $question1);
         $port = $helper->ask($input, $output, $question2);
 
-        if($this->getContainer()->hasParameter('chat_port')) {
-            $port = $this->getContainer()->getParameter('chat_port');
-        }else{
-            $port = 8080;
-        }
+        $connection = new Connection();
+        $connection->setHost($host);
+        $connection->setPort($port);
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $em->persist($connection);
+        $em->flush();
 
+        $this->runServer($port);
+    }
+
+    /**
+     * @param $port
+     */
+    protected function runServer($port)
+    {
         $server = IoServer::factory(
             new HttpServer(
                 new WsServer(

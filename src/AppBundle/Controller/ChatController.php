@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -31,19 +32,32 @@ class ChatController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $username = $data['name'];
-
-            if(!($this->getParameter('chat_host')||($this->getParameter('chat_port')))) {
-//TODO:                throw jakiś custom exception że trzeba podać parametry host i port w appbundle/../parameters.yml
-            }
-
-            $port = $this->getParameter('chat_port');
-            $host = $this->getParameter('chat_host');
-
-            return $this->render('@App/chat/chat.html.twig', ['username'=>$username, 'host'=>$host, 'port'=>$port]);
+            return $this->render('@App/chat/chat.html.twig', ['username'=>$username]);
         }
 
         return $this->render('@App/chat/login.html.twig',['form' => $form->createView()]);
+    }
 
+
+    /**
+     * ajax w chat.js pyta o nazwę hosta i port z db
+     * (które zostały tam zapisane przy komendzie chat:server)
+     *
+     * @Route(name="server_data", options={"expose"=true})
+     */
+    public function serverdataAction(Request $request)
+    {
+        $connection = $this->getDoctrine()
+            ->getRepository('AppBundle:Connection')
+            ->findLatest();
+
+        $host = $connection->getHost();
+        $port = $connection->getPort();
+
+        $arr = ['host'=>$host,'port'=>$port];
+        $json = json_encode($arr);
+
+        return new JsonResponse($json);
 
     }
 
