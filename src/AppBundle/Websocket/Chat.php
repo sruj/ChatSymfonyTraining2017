@@ -43,6 +43,7 @@ class Chat implements MessageComponentInterface
      */
     public function onMessage(ConnectionInterface $from, $msg)
     {
+
         $this->debug('onMessage');
         echo "onMessage";
         $msgDecode = json_decode($msg);
