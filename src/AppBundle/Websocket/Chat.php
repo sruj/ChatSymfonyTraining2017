@@ -57,6 +57,8 @@ class Chat extends ChatCommand implements MessageComponentInterface
     public function onError(ConnectionInterface $conn, \Exception $e)
     {
         echo "An error has occurred: {$e->getMessage()}\n";
+
+        $this->sendErrorMessage($conn,$e);
         $conn->close();
     }
 

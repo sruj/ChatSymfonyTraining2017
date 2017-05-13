@@ -51,8 +51,10 @@ function onmessage() {
         }
         if (flag === "chatMessage") {
             var div = document.getElementById('chatArea');
-            console.log(message);
             displayChatMessage(div, message);
+        }
+        if (flag === "error") {
+            displayError(message.message.data); //'{"message":{ "flag":"error", "data": "Chat nie może działać poprawnie."}}';
         }
     };
 }
@@ -86,5 +88,6 @@ function sendChatMessage(e) {
 }
 
 function displayError(v) {
-    document.getElementById('usrname').val(v);
+    var el = document.getElementById('msgFromServer');
+    el.innerHTML = v;
 }
