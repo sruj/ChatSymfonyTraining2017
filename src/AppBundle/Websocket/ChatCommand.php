@@ -30,6 +30,7 @@ class ChatCommand extends Debugger
     /**
      * @param ConnectionInterface $from
      * @param $msg
+     * @throws WrongFlagException
      */
     protected function send(ConnectionInterface $from, $msg)
     {

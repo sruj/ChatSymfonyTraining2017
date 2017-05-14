@@ -23,11 +23,11 @@
         "symfony/monolog-bundle": "^3.0.2",
         "symfony/swiftmailer-bundle": "~2.3,>=2.3.10",
         "symfony/symfony": "2.8.*",
-        "twig/twig": "^1.0||^2.0"
+        "twig/twig": "^1.0||^2.0",
+        "phpunit/phpunit": "^6.1"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~3.0",
-        "symfony/phpunit-bridge": "~2.7"
+        "sensio/generator-bundle": "~3.0"
     },
     "scripts": {
         "symfony-scripts": [
@@ -44,13 +44,6 @@
         "post-update-cmd": [
             "@symfony-scripts"
         ]
-    },
-    "config": {
-        "bin-dir": "bin",
-        "platform": {
-            "php": "5.3.9"
-        },
-        "sort-packages": true
     },
     "extra": {
         "symfony-app-dir": "app",
