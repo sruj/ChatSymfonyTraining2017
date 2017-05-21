@@ -13,6 +13,9 @@ class Debugger
 {
     public $debugCounter = 0;
 
+    /**
+     * @param $from
+     */
     public function debug($from)
     {
         $this->debugCounter++;
