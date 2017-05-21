@@ -11,8 +11,7 @@ namespace AppBundle\Websocket;
 
 class RemoveUsernameCommand extends AbstractWebsocketCommand implements CommandInterface
 {
-    protected $userlist;
-    protected $clients;
+    protected $chat;
 
 
     /**
@@ -24,10 +23,10 @@ class RemoveUsernameCommand extends AbstractWebsocketCommand implements CommandI
     public function buildMessage($from, $msg, Chat &$chat)
     {
         $userId = $from->resourceId;
-        $this->userlist = $chat->userlist;
+        $this->chat = $chat;
 
         $this->removeUsername($userId);
-        $jsonUserList = json_encode($this->userlist);
+        $jsonUserList = json_encode($this->chat->userlist);
         $jsonMsg = $this->prepareMessage("userlist", $jsonUserList);
 
         return $jsonMsg;
@@ -39,7 +38,7 @@ class RemoveUsernameCommand extends AbstractWebsocketCommand implements CommandI
      */
     private function removeUsername($userId)
     {
-        unset($this->userlist[$userId]);
+        unset($this->chat->userlist[$userId]);
     }
 
 

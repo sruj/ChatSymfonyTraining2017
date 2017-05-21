@@ -12,17 +12,15 @@ namespace AppBundle\Websocket;
 class NewUsernameCommand extends AbstractWebsocketCommand implements CommandInterface
 {
     protected $chat;
-    protected $clients;
 
 
     /**
      * @param $from
      * @param $msg
      * @param Chat $chat
-     * @param \Exception|null $e
      * @return string
      */
-    public function buildMessage($from, $msg, Chat &$chat, \Exception $e = null)
+    public function buildMessage($from, $msg, Chat &$chat)
     {
         $msgDecode = json_decode($msg);
         $userId = $from->resourceId;
