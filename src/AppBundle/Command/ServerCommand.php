@@ -22,8 +22,7 @@ class ServerCommand extends ContainerAwareCommand
             ->setName('chat:server')
             ->setDescription('Start the Chat server')
             ->addArgument('host', InputArgument::OPTIONAL, 'Provide a hostname')
-            ->addArgument('port', InputArgument::OPTIONAL, 'Provide a port number')
-        ;
+            ->addArgument('port', InputArgument::OPTIONAL, 'Provide a port number');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

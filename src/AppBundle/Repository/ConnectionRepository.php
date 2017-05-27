@@ -17,6 +17,5 @@ class ConnectionRepository extends EntityRepository
         return $this->getEntityManager()
             ->getRepository('AppBundle:Connection')
             ->findOneBy([], ['id' => 'DESC']);
-
     }
 }

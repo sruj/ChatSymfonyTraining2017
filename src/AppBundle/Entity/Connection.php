@@ -35,11 +35,10 @@ class Connection
      */
     private $host;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -62,7 +61,7 @@ class Connection
     /**
      * Get port
      *
-     * @return integer 
+     * @return integer
      */
     public function getPort()
     {
@@ -85,7 +84,7 @@ class Connection
     /**
      * Get host
      *
-     * @return string 
+     * @return string
      */
     public function getHost()
     {

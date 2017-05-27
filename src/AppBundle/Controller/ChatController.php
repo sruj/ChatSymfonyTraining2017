@@ -13,6 +13,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Class ChatController
+ * @package AppBundle\Controller
+ */
 class ChatController extends Controller
 {
 
@@ -32,12 +36,12 @@ class ChatController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $username = $data['name'];
-            return $this->render('@App/chat/chat.html.twig', ['username'=>$username]);
+
+            return $this->render('@App/chat/chat.html.twig', ['username' => $username]);
         }
 
-        return $this->render('@App/chat/login.html.twig',['form' => $form->createView()]);
+        return $this->render('@App/chat/login.html.twig', ['form' => $form->createView()]);
     }
-
 
     /**
      * ajax w chat.js pyta o nazwę hosta i port z db
@@ -54,11 +58,9 @@ class ChatController extends Controller
         $host = $connection->getHost();
         $port = $connection->getPort();
 
-        $arr = ['host'=>$host,'port'=>$port];
+        $arr = ['host' => $host, 'port' => $port];
         $json = json_encode($arr);
 
         return new JsonResponse($json);
-
     }
-
 }
