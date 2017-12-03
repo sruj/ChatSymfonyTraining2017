@@ -10,7 +10,7 @@ Prosty projekt chatu wykonany we frameworku Symfony z użyciem technologii WebSo
 #### Funkcjonalność
 Chat dostępny po wprowadzeniu nicku. W oknie głównym chatu wyświetlany tekst. W prawym oknie lista użytkowników chatu.    
 
-#### Kluczowe miejsca
+#### Kluczowe miejsca w kodzie:
 - https://github.com/sruj/ChatSymfonyTraining2017/blob/master/src/AppBundle/Resources/public/js/chat.js
 - https://github.com/sruj/ChatSymfonyTraining2017/blob/master/src/AppBundle/Controller/ChatController.php
 - https://github.com/sruj/ChatSymfonyTraining2017/blob/master/src/AppBundle/Websocket/Chat.php
